@@ -94,7 +94,8 @@ function renderJoin() {
     renderWho();
   };
   $("#joinBtn").onclick = go;
-  $("#code").onkeydown = (e) => e.key === "Enter" && go();
+  // Wichtig: nichts zurückgeben – ein "false" würde jede Taste blockieren
+  $("#code").addEventListener("keydown", (e) => { if (e.key === "Enter") go(); });
 }
 
 function renderWho() {

@@ -28,7 +28,7 @@ async function askPin() {
       onMount: (el, close) => {
         const i = el.querySelector("#pin");
         setTimeout(() => i.focus(), 50);
-        i.onkeydown = (e) => e.key === "Enter" && close("go");
+        i.addEventListener("keydown", (e) => { if (e.key === "Enter") close("go"); });
         el._pin = i;
       },
     });

@@ -73,8 +73,8 @@ class LocalBackend {
   }
   async join(code) {
     const s = cache.settings.get("main");
-    const valid = (s?.familyCode || DEMO_FAMILY_CODE).trim().toUpperCase();
-    if (code.trim().toUpperCase() !== valid) return false;
+    const norm = (c) => String(c).replace(/\s+/g, "").toUpperCase();
+    if (norm(code) !== norm(s?.familyCode || DEMO_FAMILY_CODE)) return false;
     localStorage.setItem("opa-joined", "1");
     return true;
   }
@@ -145,7 +145,7 @@ class FirebaseBackend {
   async join(code) {
     const { fs } = this;
     try {
-      await fs.setDoc(fs.doc(this.db, "members", this.uid), { code: code.trim().toUpperCase(), ts: Date.now() });
+      await fs.setDoc(fs.doc(this.db, "members", this.uid), { code: code.replace(/\s+/g, "").toUpperCase(), ts: Date.now() });
       this.member = true;
       await this.subscribeAll();
       return true;

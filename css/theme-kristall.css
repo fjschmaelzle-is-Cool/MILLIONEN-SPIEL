@@ -44,14 +44,18 @@ h2.title-font, h1.title-font { text-transform: uppercase; background: linear-gra
 .icon-btn { border-radius: 0; clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%); background: linear-gradient(160deg, rgba(63, 216, 255, .28), rgba(91, 63, 214, .35)); border: 0; width: 46px; }
 .mode-pill { background: linear-gradient(90deg, var(--violet), #8a4fff); }
 
-/* Glas-Paneele mit abgeschrägten Ecken und Neonkante */
+/* Glas-Paneele mit Neonkante.
+   WICHTIG: Kästen, die Eingabefelder enthalten (.card, .modal), bekommen
+   KEIN clip-path und KEIN backdrop-filter – sonst erscheint auf Handys
+   (v. a. iPhone) getippter Text nicht im Eingabefeld. */
 .card, .tile, .ladder, .ladder-toggle, .modal, .adm-q {
-  border-radius: 0; clip-path: var(--hex);
-  background: linear-gradient(160deg, rgba(20, 30, 90, .72), rgba(8, 12, 40, .8));
-  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  border: 0; box-shadow: inset 0 0 0 1.5px var(--line), inset 0 0 30px rgba(63, 216, 255, .08);
+  background: linear-gradient(160deg, rgba(20, 30, 90, .9), rgba(8, 12, 40, .94));
+  border: 1.5px solid var(--line); border-radius: 6px;
+  box-shadow: 0 0 18px rgba(63, 216, 255, .15), inset 0 0 30px rgba(63, 216, 255, .08);
 }
-.modal { box-shadow: inset 0 0 0 2px var(--gold), inset 0 0 40px rgba(255, 200, 97, .12); }
+.tile, .ladder, .ladder-toggle, .adm-q { border: 0; border-radius: 0; clip-path: var(--hex); box-shadow: inset 0 0 0 1.5px var(--line), inset 0 0 30px rgba(63, 216, 255, .08); }
+.modal { border: 2px solid var(--gold); box-shadow: 0 0 30px rgba(255, 200, 97, .25), inset 0 0 40px rgba(255, 200, 97, .12); }
+input, textarea, select { -webkit-user-select: text; user-select: text; font-size: 16px; }
 .tile { transition: transform .15s, box-shadow .2s; }
 .tile:hover, .tile:active { transform: translateY(-2px); box-shadow: inset 0 0 0 2px var(--cyan), inset 0 0 40px rgba(63, 216, 255, .22); }
 .tile .ico { filter: drop-shadow(0 0 10px rgba(63, 216, 255, .6)); }

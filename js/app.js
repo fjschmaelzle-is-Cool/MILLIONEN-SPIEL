@@ -84,7 +84,7 @@ function renderJoin() {
       <p class="muted">Das Familien-Quiz zum 77. Geburtstag</p>
       <label class="field"><span>Familien-Code</span><input type="text" id="code" autocomplete="off" autocapitalize="characters" placeholder="z. B. OPA77"></label>
       <button class="btn gold block" id="joinBtn">Mitspielen</button>
-      ${store.mode === "demo" ? `<p class="small muted" style="margin-top:12px">Demo-Modus: Der Code ist <b>OPA77</b>. Daten bleiben auf diesem Gerät.</p>` : ""}
+      ${store.mode === "demo" ? `<p class="small muted" style="margin-top:12px">Demo-Modus: Der Code ist <b>OPA77</b> (O-P-A und zweimal die 7). Daten bleiben auf diesem Gerät.</p>` : ""}
     </div></main>`;
   const go = async () => {
     const ok = await store.join($("#code").value);

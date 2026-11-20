@@ -1,0 +1,28 @@
+rules_version = '2';
+// Nur Geräte, die mit dem Familien-Code beigetreten sind, dürfen lesen/schreiben.
+service cloud.firestore {
+  match /databases/{db}/documents {
+    function isMember() {
+      return request.auth != null && exists(/databases/$(db)/documents/members/$(request.auth.uid));
+    }
+
+    // Familien-Codes: niemand darf sie auslesen (nur die Regel prüft, ob es sie gibt)
+    match /codes/{code} {
+      allow read, write: if false;
+    }
+
+    // Beitritt: nur mit gültigem Familien-Code
+    match /members/{uid} {
+      allow get: if request.auth != null && request.auth.uid == uid;
+      allow create: if request.auth != null && request.auth.uid == uid
+        && request.resource.data.code is string
+        && exists(/databases/$(db)/documents/codes/$(request.resource.data.code));
+      allow update, delete: if false;
+    }
+
+    match /{col}/{id} {
+      allow read, write: if isMember()
+        && col in ['settings', 'players', 'rounds', 'questions', 'pools', 'duels', 'polls', 'announcements', 'weeks'];
+    }
+  }
+}
